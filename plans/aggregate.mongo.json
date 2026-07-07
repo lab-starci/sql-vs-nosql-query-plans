@@ -1,0 +1,152 @@
+{
+  "explainVersion": "1",
+  "stages": [
+    {
+      "$cursor": {
+        "queryPlanner": {
+          "namespace": "benchmark.products",
+          "indexFilterSet": false,
+          "parsedQuery": {},
+          "queryHash": "B632330F",
+          "planCacheKey": "B632330F",
+          "optimizationTimeMillis": 0,
+          "maxIndexedOrSolutionsReached": false,
+          "maxIndexedAndSolutionsReached": false,
+          "maxScansToExplodeReached": false,
+          "winningPlan": {
+            "stage": "PROJECTION_SIMPLE",
+            "transformBy": {
+              "category": 1,
+              "price": 1,
+              "_id": 0
+            },
+            "inputStage": {
+              "stage": "COLLSCAN",
+              "direction": "forward"
+            }
+          },
+          "rejectedPlans": []
+        },
+        "executionStats": {
+          "executionSuccess": true,
+          "nReturned": 10000,
+          "executionTimeMillis": 11,
+          "totalKeysExamined": 0,
+          "totalDocsExamined": 10000,
+          "executionStages": {
+            "stage": "PROJECTION_SIMPLE",
+            "nReturned": 10000,
+            "executionTimeMillisEstimate": 0,
+            "works": 10001,
+            "advanced": 10000,
+            "needTime": 0,
+            "needYield": 0,
+            "saveState": 11,
+            "restoreState": 11,
+            "isEOF": 1,
+            "transformBy": {
+              "category": 1,
+              "price": 1,
+              "_id": 0
+            },
+            "inputStage": {
+              "stage": "COLLSCAN",
+              "nReturned": 10000,
+              "executionTimeMillisEstimate": 0,
+              "works": 10001,
+              "advanced": 10000,
+              "needTime": 0,
+              "needYield": 0,
+              "saveState": 11,
+              "restoreState": 11,
+              "isEOF": 1,
+              "direction": "forward",
+              "docsExamined": 10000
+            }
+          }
+        }
+      },
+      "nReturned": 10000,
+      "executionTimeMillisEstimate": 8
+    },
+    {
+      "$group": {
+        "_id": "$category",
+        "productCount": {
+          "$sum": {
+            "$const": 1
+          }
+        },
+        "avgPrice": {
+          "$avg": "$price"
+        }
+      },
+      "maxAccumulatorMemoryUsageBytes": {
+        "productCount": 960,
+        "avgPrice": 1040
+      },
+      "totalOutputDataSizeBytes": 2770,
+      "usedDisk": false,
+      "spills": 0,
+      "spilledDataStorageSize": 0,
+      "numBytesSpilledEstimate": 0,
+      "spilledRecords": 0,
+      "nReturned": 10,
+      "executionTimeMillisEstimate": 9
+    },
+    {
+      "$sort": {
+        "sortKey": {
+          "_id": 1
+        }
+      },
+      "totalDataSizeSortedBytesEstimate": 2850,
+      "usedDisk": false,
+      "spills": 0,
+      "spilledDataStorageSize": 0,
+      "nReturned": 10,
+      "executionTimeMillisEstimate": 9
+    }
+  ],
+  "serverInfo": {
+    "host": "8f318812680a",
+    "port": 27017,
+    "version": "7.0.37",
+    "gitVersion": "9d30419d900008ba3ecf2a14546b236f2158b65b"
+  },
+  "serverParameters": {
+    "internalQueryFacetBufferSizeBytes": 104857600,
+    "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+    "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+    "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+    "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+    "internalQueryProhibitBlockingMergeOnMongoS": 0,
+    "internalQueryMaxAddToSetBytes": 104857600,
+    "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600,
+    "internalQueryFrameworkControl": "forceClassicEngine"
+  },
+  "command": {
+    "aggregate": "products",
+    "pipeline": [
+      {
+        "$group": {
+          "_id": "$category",
+          "productCount": {
+            "$sum": 1
+          },
+          "avgPrice": {
+            "$avg": "$price"
+          }
+        }
+      },
+      {
+        "$sort": {
+          "_id": 1
+        }
+      }
+    ],
+    "cursor": {},
+    "$db": "benchmark"
+  },
+  "ok": 1
+}

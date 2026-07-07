@@ -1,0 +1,68 @@
+{
+  "explainVersion": "1",
+  "queryPlanner": {
+    "namespace": "benchmark.products",
+    "indexFilterSet": false,
+    "parsedQuery": {
+      "_id": {
+        "$eq": "prod-05000"
+      }
+    },
+    "queryHash": "869CED4F",
+    "planCacheKey": "333C0A17",
+    "optimizationTimeMillis": 0,
+    "maxIndexedOrSolutionsReached": false,
+    "maxIndexedAndSolutionsReached": false,
+    "maxScansToExplodeReached": false,
+    "winningPlan": {
+      "stage": "IDHACK"
+    },
+    "rejectedPlans": []
+  },
+  "executionStats": {
+    "executionSuccess": true,
+    "nReturned": 1,
+    "executionTimeMillis": 0,
+    "totalKeysExamined": 1,
+    "totalDocsExamined": 1,
+    "executionStages": {
+      "stage": "IDHACK",
+      "nReturned": 1,
+      "executionTimeMillisEstimate": 0,
+      "works": 2,
+      "advanced": 1,
+      "needTime": 0,
+      "needYield": 0,
+      "saveState": 0,
+      "restoreState": 0,
+      "isEOF": 1,
+      "keysExamined": 1,
+      "docsExamined": 1
+    }
+  },
+  "command": {
+    "find": "products",
+    "filter": {
+      "_id": "prod-05000"
+    },
+    "$db": "benchmark"
+  },
+  "serverInfo": {
+    "host": "8f318812680a",
+    "port": 27017,
+    "version": "7.0.37",
+    "gitVersion": "9d30419d900008ba3ecf2a14546b236f2158b65b"
+  },
+  "serverParameters": {
+    "internalQueryFacetBufferSizeBytes": 104857600,
+    "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+    "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+    "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+    "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+    "internalQueryProhibitBlockingMergeOnMongoS": 0,
+    "internalQueryMaxAddToSetBytes": 104857600,
+    "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600,
+    "internalQueryFrameworkControl": "forceClassicEngine"
+  },
+  "ok": 1
+}

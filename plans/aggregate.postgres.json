@@ -1,0 +1,69 @@
+[
+  {
+    "Plan": {
+      "Node Type": "Sort",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Startup Cost": 324.32,
+      "Total Cost": 324.34,
+      "Plan Rows": 10,
+      "Plan Width": 44,
+      "Actual Startup Time": 4.539,
+      "Actual Total Time": 4.54,
+      "Actual Rows": 10,
+      "Actual Loops": 1,
+      "Sort Key": [
+        "category"
+      ],
+      "Sort Method": "quicksort",
+      "Sort Space Used": 25,
+      "Sort Space Type": "Memory",
+      "Plans": [
+        {
+          "Node Type": "Aggregate",
+          "Strategy": "Hashed",
+          "Partial Mode": "Simple",
+          "Parent Relationship": "Outer",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Startup Cost": 324,
+          "Total Cost": 324.15,
+          "Plan Rows": 10,
+          "Plan Width": 44,
+          "Actual Startup Time": 4.478,
+          "Actual Total Time": 4.485,
+          "Actual Rows": 10,
+          "Actual Loops": 1,
+          "Group Key": [
+            "category"
+          ],
+          "Planned Partitions": 0,
+          "HashAgg Batches": 1,
+          "Peak Memory Usage": 24,
+          "Disk Usage": 0,
+          "Plans": [
+            {
+              "Node Type": "Seq Scan",
+              "Parent Relationship": "Outer",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Relation Name": "products",
+              "Alias": "products",
+              "Startup Cost": 0,
+              "Total Cost": 249,
+              "Plan Rows": 10000,
+              "Plan Width": 14,
+              "Actual Startup Time": 0.006,
+              "Actual Total Time": 1.058,
+              "Actual Rows": 10000,
+              "Actual Loops": 1
+            }
+          ]
+        }
+      ]
+    },
+    "Planning Time": 0.343,
+    "Triggers": [],
+    "Execution Time": 4.607
+  }
+]

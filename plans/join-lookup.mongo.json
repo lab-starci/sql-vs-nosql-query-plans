@@ -1,0 +1,244 @@
+{
+  "explainVersion": "1",
+  "stages": [
+    {
+      "$cursor": {
+        "queryPlanner": {
+          "namespace": "benchmark.products",
+          "indexFilterSet": false,
+          "parsedQuery": {
+            "$and": [
+              {
+                "price": {
+                  "$lte": 750
+                }
+              },
+              {
+                "price": {
+                  "$gte": 250
+                }
+              }
+            ]
+          },
+          "queryHash": "67BC4A27",
+          "planCacheKey": "0D4B3BC7",
+          "optimizationTimeMillis": 0,
+          "maxIndexedOrSolutionsReached": false,
+          "maxIndexedAndSolutionsReached": false,
+          "maxScansToExplodeReached": false,
+          "winningPlan": {
+            "stage": "PROJECTION_SIMPLE",
+            "transformBy": {
+              "_id": 1,
+              "category": 1,
+              "id": 1,
+              "name": 1,
+              "price": 1
+            },
+            "inputStage": {
+              "stage": "FETCH",
+              "inputStage": {
+                "stage": "IXSCAN",
+                "keyPattern": {
+                  "price": 1
+                },
+                "indexName": "idx_products_price",
+                "isMultiKey": false,
+                "multiKeyPaths": {
+                  "price": []
+                },
+                "isUnique": false,
+                "isSparse": false,
+                "isPartial": false,
+                "indexVersion": 2,
+                "direction": "forward",
+                "indexBounds": {
+                  "price": [
+                    "[250, 750]"
+                  ]
+                }
+              }
+            }
+          },
+          "rejectedPlans": []
+        },
+        "executionStats": {
+          "executionSuccess": true,
+          "nReturned": 1937,
+          "executionTimeMillis": 75,
+          "totalKeysExamined": 1937,
+          "totalDocsExamined": 1937,
+          "executionStages": {
+            "stage": "PROJECTION_SIMPLE",
+            "nReturned": 1937,
+            "executionTimeMillisEstimate": 0,
+            "works": 1938,
+            "advanced": 1937,
+            "needTime": 0,
+            "needYield": 0,
+            "saveState": 2,
+            "restoreState": 2,
+            "isEOF": 1,
+            "transformBy": {
+              "_id": 1,
+              "category": 1,
+              "id": 1,
+              "name": 1,
+              "price": 1
+            },
+            "inputStage": {
+              "stage": "FETCH",
+              "nReturned": 1937,
+              "executionTimeMillisEstimate": 0,
+              "works": 1938,
+              "advanced": 1937,
+              "needTime": 0,
+              "needYield": 0,
+              "saveState": 2,
+              "restoreState": 2,
+              "isEOF": 1,
+              "docsExamined": 1937,
+              "alreadyHasObj": 0,
+              "inputStage": {
+                "stage": "IXSCAN",
+                "nReturned": 1937,
+                "executionTimeMillisEstimate": 0,
+                "works": 1938,
+                "advanced": 1937,
+                "needTime": 0,
+                "needYield": 0,
+                "saveState": 2,
+                "restoreState": 2,
+                "isEOF": 1,
+                "keyPattern": {
+                  "price": 1
+                },
+                "indexName": "idx_products_price",
+                "isMultiKey": false,
+                "multiKeyPaths": {
+                  "price": []
+                },
+                "isUnique": false,
+                "isSparse": false,
+                "isPartial": false,
+                "indexVersion": 2,
+                "direction": "forward",
+                "indexBounds": {
+                  "price": [
+                    "[250, 750]"
+                  ]
+                },
+                "keysExamined": 1937,
+                "seeks": 1,
+                "dupsTested": 0,
+                "dupsDropped": 0
+              }
+            }
+          }
+        }
+      },
+      "nReturned": 1937,
+      "executionTimeMillisEstimate": 2
+    },
+    {
+      "$lookup": {
+        "from": "categories",
+        "as": "categoryDetails",
+        "localField": "category",
+        "foreignField": "_id",
+        "unwinding": {
+          "preserveNullAndEmptyArrays": false
+        }
+      },
+      "totalDocsExamined": 1937,
+      "totalKeysExamined": 1937,
+      "collectionScans": 0,
+      "indexesUsed": [
+        "_id_"
+      ],
+      "nReturned": 1937,
+      "executionTimeMillisEstimate": 73
+    },
+    {
+      "$sort": {
+        "sortKey": {
+          "price": 1
+        }
+      },
+      "totalDataSizeSortedBytesEstimate": 1035787,
+      "usedDisk": false,
+      "spills": 0,
+      "spilledDataStorageSize": 0,
+      "nReturned": 1937,
+      "executionTimeMillisEstimate": 73
+    },
+    {
+      "$project": {
+        "_id": true,
+        "id": true,
+        "name": true,
+        "price": true,
+        "categoryDetails": true
+      },
+      "nReturned": 1937,
+      "executionTimeMillisEstimate": 73
+    }
+  ],
+  "serverInfo": {
+    "host": "8f318812680a",
+    "port": 27017,
+    "version": "7.0.37",
+    "gitVersion": "9d30419d900008ba3ecf2a14546b236f2158b65b"
+  },
+  "serverParameters": {
+    "internalQueryFacetBufferSizeBytes": 104857600,
+    "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+    "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+    "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+    "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+    "internalQueryProhibitBlockingMergeOnMongoS": 0,
+    "internalQueryMaxAddToSetBytes": 104857600,
+    "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600,
+    "internalQueryFrameworkControl": "forceClassicEngine"
+  },
+  "command": {
+    "aggregate": "products",
+    "pipeline": [
+      {
+        "$match": {
+          "price": {
+            "$gte": 250,
+            "$lte": 750
+          }
+        }
+      },
+      {
+        "$lookup": {
+          "from": "categories",
+          "localField": "category",
+          "foreignField": "_id",
+          "as": "categoryDetails"
+        }
+      },
+      {
+        "$unwind": "$categoryDetails"
+      },
+      {
+        "$sort": {
+          "price": 1
+        }
+      },
+      {
+        "$project": {
+          "id": 1,
+          "name": 1,
+          "price": 1,
+          "categoryDetails": 1
+        }
+      }
+    ],
+    "cursor": {},
+    "$db": "benchmark"
+  },
+  "ok": 1
+}

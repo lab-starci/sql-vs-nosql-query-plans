@@ -1,0 +1,138 @@
+{
+  "explainVersion": "1",
+  "queryPlanner": {
+    "namespace": "benchmark.products",
+    "indexFilterSet": false,
+    "parsedQuery": {
+      "$and": [
+        {
+          "price": {
+            "$lte": 750
+          }
+        },
+        {
+          "price": {
+            "$gte": 250
+          }
+        }
+      ]
+    },
+    "queryHash": "70E1F042",
+    "planCacheKey": "12D6CBD5",
+    "optimizationTimeMillis": 0,
+    "maxIndexedOrSolutionsReached": false,
+    "maxIndexedAndSolutionsReached": false,
+    "maxScansToExplodeReached": false,
+    "winningPlan": {
+      "stage": "FETCH",
+      "inputStage": {
+        "stage": "IXSCAN",
+        "keyPattern": {
+          "price": 1
+        },
+        "indexName": "idx_products_price",
+        "isMultiKey": false,
+        "multiKeyPaths": {
+          "price": []
+        },
+        "isUnique": false,
+        "isSparse": false,
+        "isPartial": false,
+        "indexVersion": 2,
+        "direction": "forward",
+        "indexBounds": {
+          "price": [
+            "[250, 750]"
+          ]
+        }
+      }
+    },
+    "rejectedPlans": []
+  },
+  "executionStats": {
+    "executionSuccess": true,
+    "nReturned": 1937,
+    "executionTimeMillis": 6,
+    "totalKeysExamined": 1937,
+    "totalDocsExamined": 1937,
+    "executionStages": {
+      "stage": "FETCH",
+      "nReturned": 1937,
+      "executionTimeMillisEstimate": 0,
+      "works": 1938,
+      "advanced": 1937,
+      "needTime": 0,
+      "needYield": 0,
+      "saveState": 1,
+      "restoreState": 1,
+      "isEOF": 1,
+      "docsExamined": 1937,
+      "alreadyHasObj": 0,
+      "inputStage": {
+        "stage": "IXSCAN",
+        "nReturned": 1937,
+        "executionTimeMillisEstimate": 0,
+        "works": 1938,
+        "advanced": 1937,
+        "needTime": 0,
+        "needYield": 0,
+        "saveState": 1,
+        "restoreState": 1,
+        "isEOF": 1,
+        "keyPattern": {
+          "price": 1
+        },
+        "indexName": "idx_products_price",
+        "isMultiKey": false,
+        "multiKeyPaths": {
+          "price": []
+        },
+        "isUnique": false,
+        "isSparse": false,
+        "isPartial": false,
+        "indexVersion": 2,
+        "direction": "forward",
+        "indexBounds": {
+          "price": [
+            "[250, 750]"
+          ]
+        },
+        "keysExamined": 1937,
+        "seeks": 1,
+        "dupsTested": 0,
+        "dupsDropped": 0
+      }
+    }
+  },
+  "command": {
+    "find": "products",
+    "filter": {
+      "price": {
+        "$gte": 250,
+        "$lte": 750
+      }
+    },
+    "sort": {
+      "price": 1
+    },
+    "$db": "benchmark"
+  },
+  "serverInfo": {
+    "host": "8f318812680a",
+    "port": 27017,
+    "version": "7.0.37",
+    "gitVersion": "9d30419d900008ba3ecf2a14546b236f2158b65b"
+  },
+  "serverParameters": {
+    "internalQueryFacetBufferSizeBytes": 104857600,
+    "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+    "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+    "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+    "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+    "internalQueryProhibitBlockingMergeOnMongoS": 0,
+    "internalQueryMaxAddToSetBytes": 104857600,
+    "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600,
+    "internalQueryFrameworkControl": "forceClassicEngine"
+  },
+  "ok": 1
+}

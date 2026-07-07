@@ -1,0 +1,27 @@
+{
+  "name": "sql-vs-nosql-query-plans",
+  "version": "1.0.0",
+  "description": "Mirror one product fixture into PostgreSQL and MongoDB, then compare real query plans.",
+  "main": "dist/index.js",
+  "scripts": {
+    "generate": "tsx src/generate-fixture.ts",
+    "seed": "tsx src/index.ts seed",
+    "benchmark": "tsx src/index.ts benchmark",
+    "check": "tsx src/index.ts check",
+    "all": "npm run generate && npm run seed && npm run benchmark",
+    "build": "tsc"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "mongodb": "^6.18.0",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.4",
+    "@types/pg": "^8.15.4",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  }
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "shape": "point-lookup",
+    "postgresTimeMs": 0.139,
+    "mongoTimeMs": 0,
+    "winner": "MongoDB",
+    "postgresPlanFile": "plans/point-lookup.postgres.json",
+    "mongoPlanFile": "plans/point-lookup.mongo.json",
+    "postgresEvidence": "Index Scan",
+    "mongoEvidence": "IDHACK"
+  },
+  {
+    "shape": "range-scan",
+    "postgresTimeMs": 2.478,
+    "mongoTimeMs": 6,
+    "winner": "PostgreSQL",
+    "postgresPlanFile": "plans/range-scan.postgres.json",
+    "mongoPlanFile": "plans/range-scan.mongo.json",
+    "postgresEvidence": "Bitmap Index Scan",
+    "mongoEvidence": "IXSCAN"
+  },
+  {
+    "shape": "aggregate",
+    "postgresTimeMs": 4.607,
+    "mongoTimeMs": 11,
+    "winner": "PostgreSQL",
+    "postgresPlanFile": "plans/aggregate.postgres.json",
+    "mongoPlanFile": "plans/aggregate.mongo.json",
+    "postgresEvidence": "Seq Scan",
+    "mongoEvidence": "COLLSCAN"
+  },
+  {
+    "shape": "join-lookup",
+    "postgresTimeMs": 2.444,
+    "mongoTimeMs": 75,
+    "winner": "PostgreSQL",
+    "postgresPlanFile": "plans/join-lookup.postgres.json",
+    "mongoPlanFile": "plans/join-lookup.mongo.json",
+    "postgresEvidence": "Hash Join, Bitmap Index Scan, Seq Scan",
+    "mongoEvidence": "IXSCAN"
+  }
+]
