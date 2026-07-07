@@ -1,0 +1,232 @@
+{
+  "fixture": {
+    "file": "fixture.json",
+    "seed": 20260707,
+    "productCount": 10000,
+    "categoryCount": 10
+  },
+  "sharedFixtureSamples": [
+    {
+      "id": "prod-00001",
+      "fixture": {
+        "id": "prod-00001",
+        "name": "monitors product 1",
+        "category": "monitors",
+        "price": 908.54,
+        "tags": [
+          "wireless",
+          "budget",
+          "fast",
+          "portable"
+        ],
+        "createdAt": "2025-05-14T13:39:43.454Z"
+      },
+      "postgres": {
+        "id": "prod-00001",
+        "name": "monitors product 1",
+        "category": "monitors",
+        "price": 908.54,
+        "tags": [
+          "wireless",
+          "budget",
+          "fast",
+          "portable"
+        ],
+        "createdAt": "2025-05-14T13:39:43.454Z"
+      },
+      "mongo": {
+        "id": "prod-00001",
+        "name": "monitors product 1",
+        "category": "monitors",
+        "price": 908.54,
+        "tags": [
+          "wireless",
+          "budget",
+          "fast",
+          "portable"
+        ],
+        "createdAt": "2025-05-14T13:39:43.454Z"
+      },
+      "matches": true
+    },
+    {
+      "id": "prod-05000",
+      "fixture": {
+        "id": "prod-05000",
+        "name": "storage product 5000",
+        "category": "storage",
+        "price": 807.09,
+        "tags": [
+          "premium",
+          "new",
+          "budget",
+          "eco"
+        ],
+        "createdAt": "2025-07-28T10:49:01.866Z"
+      },
+      "postgres": {
+        "id": "prod-05000",
+        "name": "storage product 5000",
+        "category": "storage",
+        "price": 807.09,
+        "tags": [
+          "premium",
+          "new",
+          "budget",
+          "eco"
+        ],
+        "createdAt": "2025-07-28T10:49:01.866Z"
+      },
+      "mongo": {
+        "id": "prod-05000",
+        "name": "storage product 5000",
+        "category": "storage",
+        "price": 807.09,
+        "tags": [
+          "premium",
+          "new",
+          "budget",
+          "eco"
+        ],
+        "createdAt": "2025-07-28T10:49:01.866Z"
+      },
+      "matches": true
+    },
+    {
+      "id": "prod-10000",
+      "fixture": {
+        "id": "prod-10000",
+        "name": "audio product 10000",
+        "category": "audio",
+        "price": 488.55,
+        "tags": [
+          "eco",
+          "usb-c",
+          "popular",
+          "premium"
+        ],
+        "createdAt": "2025-09-26T02:30:16.073Z"
+      },
+      "postgres": {
+        "id": "prod-10000",
+        "name": "audio product 10000",
+        "category": "audio",
+        "price": 488.55,
+        "tags": [
+          "eco",
+          "usb-c",
+          "popular",
+          "premium"
+        ],
+        "createdAt": "2025-09-26T02:30:16.073Z"
+      },
+      "mongo": {
+        "id": "prod-10000",
+        "name": "audio product 10000",
+        "category": "audio",
+        "price": 488.55,
+        "tags": [
+          "eco",
+          "usb-c",
+          "popular",
+          "premium"
+        ],
+        "createdAt": "2025-09-26T02:30:16.073Z"
+      },
+      "matches": true
+    }
+  ],
+  "indexes": {
+    "postgres": [
+      {
+        "indexname": "idx_products_category",
+        "indexdef": "CREATE INDEX idx_products_category ON public.products USING btree (category)"
+      },
+      {
+        "indexname": "idx_products_price",
+        "indexdef": "CREATE INDEX idx_products_price ON public.products USING btree (price)"
+      },
+      {
+        "indexname": "products_pkey",
+        "indexdef": "CREATE UNIQUE INDEX products_pkey ON public.products USING btree (id)"
+      }
+    ],
+    "mongo": [
+      {
+        "name": "_id_",
+        "key": {
+          "_id": 1
+        }
+      },
+      {
+        "name": "idx_products_category",
+        "key": {
+          "category": 1
+        }
+      },
+      {
+        "name": "idx_products_price",
+        "key": {
+          "price": 1
+        }
+      }
+    ]
+  },
+  "planCapture": {
+    "postgres": "EXPLAIN (ANALYZE, FORMAT JSON)",
+    "mongo": "explain('executionStats') / db.command({ explain, verbosity: 'executionStats' })",
+    "timingsSource": "PostgreSQL Execution Time and MongoDB executionStats.executionTimeMillis",
+    "rawPlanFiles": [
+      "plans/point-lookup.postgres.json",
+      "plans/point-lookup.mongo.json",
+      "plans/range-scan.postgres.json",
+      "plans/range-scan.mongo.json",
+      "plans/aggregate.postgres.json",
+      "plans/aggregate.mongo.json",
+      "plans/join-lookup.postgres.json",
+      "plans/join-lookup.mongo.json"
+    ]
+  },
+  "verdictSummary": [
+    {
+      "shape": "point-lookup",
+      "postgresTimeMs": 0.158,
+      "mongoTimeMs": 0,
+      "winner": "MongoDB",
+      "postgresPlanFile": "plans/point-lookup.postgres.json",
+      "mongoPlanFile": "plans/point-lookup.mongo.json",
+      "postgresEvidence": "Index Scan",
+      "mongoEvidence": "IDHACK"
+    },
+    {
+      "shape": "range-scan",
+      "postgresTimeMs": 2.746,
+      "mongoTimeMs": 2,
+      "winner": "MongoDB",
+      "postgresPlanFile": "plans/range-scan.postgres.json",
+      "mongoPlanFile": "plans/range-scan.mongo.json",
+      "postgresEvidence": "Bitmap Index Scan",
+      "mongoEvidence": "IXSCAN"
+    },
+    {
+      "shape": "aggregate",
+      "postgresTimeMs": 3.167,
+      "mongoTimeMs": 13,
+      "winner": "PostgreSQL",
+      "postgresPlanFile": "plans/aggregate.postgres.json",
+      "mongoPlanFile": "plans/aggregate.mongo.json",
+      "postgresEvidence": "Seq Scan",
+      "mongoEvidence": "COLLSCAN"
+    },
+    {
+      "shape": "join-lookup",
+      "postgresTimeMs": 1.833,
+      "mongoTimeMs": 76,
+      "winner": "PostgreSQL",
+      "postgresPlanFile": "plans/join-lookup.postgres.json",
+      "mongoPlanFile": "plans/join-lookup.mongo.json",
+      "postgresEvidence": "Hash Join, Bitmap Index Scan, Seq Scan",
+      "mongoEvidence": "IXSCAN"
+    }
+  ]
+}

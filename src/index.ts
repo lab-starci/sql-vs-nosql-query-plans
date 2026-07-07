@@ -13,6 +13,14 @@ type CategoryDocument = Category & {
   _id: string;
 };
 
+type AuditSample = {
+  id: string;
+  fixture: Product;
+  postgres: Product;
+  mongo: Product;
+  matches: boolean;
+};
+
 const ROOT = path.resolve(__dirname, "..");
 const FIXTURE_PATH = path.join(ROOT, "fixture.json");
 const PLANS_DIR = path.join(ROOT, "plans");
@@ -27,6 +35,8 @@ const queryInputs = {
   minPrice: 250,
   maxPrice: 750
 };
+
+const sampleIds = ["prod-00001", "prod-05000", "prod-10000"];
 
 async function readFixture(): Promise<Fixture> {
   const raw = await readFile(FIXTURE_PATH, "utf8");
@@ -141,6 +151,108 @@ async function check(): Promise<void> {
   }
 
   console.log(`Counts match: fixture=${fixture.products.length}, postgres=${pgCount}, mongo=${mongoCount}`);
+}
+
+async function audit(): Promise<void> {
+  const fixture = await readFixture();
+  const fixtureById = new Map(fixture.products.map((product) => [product.id, product]));
+
+  const pgRows = await withPg(async (client) => {
+    const result = await client.query<{
+      id: string;
+      name: string;
+      category: string;
+      price: string;
+      tags: string[];
+      created_at: Date;
+    }>(
+      "SELECT id, name, category, price::text, tags, created_at FROM products WHERE id = ANY($1) ORDER BY id",
+      [sampleIds]
+    );
+
+    return result.rows.map<Product>((row) => ({
+      id: row.id,
+      name: row.name,
+      category: row.category,
+      price: Number(row.price),
+      tags: row.tags,
+      createdAt: row.created_at.toISOString()
+    }));
+  });
+
+  const mongoRows = await withMongo(async (client) => {
+    const rows = await client
+      .db(MONGO_DB)
+      .collection<ProductDocument>("products")
+      .find({ _id: { $in: sampleIds } })
+      .sort({ _id: 1 })
+      .toArray();
+
+    return rows.map<Product>((row) => ({
+      id: row.id,
+      name: row.name,
+      category: row.category,
+      price: row.price,
+      tags: row.tags,
+      createdAt: row.createdAt.toISOString()
+    }));
+  });
+
+  const samples: AuditSample[] = sampleIds.map((id) => {
+    const fixtureProduct = fixtureById.get(id);
+    const postgres = pgRows.find((row) => row.id === id);
+    const mongo = mongoRows.find((row) => row.id === id);
+
+    if (!fixtureProduct || !postgres || !mongo) {
+      throw new Error(`Missing sampled product ${id}`);
+    }
+
+    return {
+      id,
+      fixture: fixtureProduct,
+      postgres,
+      mongo,
+      matches:
+        JSON.stringify(fixtureProduct) === JSON.stringify(postgres) &&
+        JSON.stringify(fixtureProduct) === JSON.stringify(mongo)
+    };
+  });
+
+  const pgIndexes = await withPg(async (client) => {
+    const result = await client.query<{ indexname: string; indexdef: string }>(
+      "SELECT indexname, indexdef FROM pg_indexes WHERE tablename = 'products' ORDER BY indexname"
+    );
+    return result.rows;
+  });
+
+  const mongoIndexes = await withMongo((client) =>
+    client.db(MONGO_DB).collection<ProductDocument>("products").indexes()
+  );
+
+  const summary = JSON.parse(await readFile(SUMMARY_PATH, "utf8")) as SummaryRow[];
+  const report = {
+    fixture: {
+      file: "fixture.json",
+      seed: fixture.seed,
+      productCount: fixture.products.length,
+      categoryCount: fixture.categories.length
+    },
+    sharedFixtureSamples: samples,
+    indexes: {
+      postgres: pgIndexes,
+      mongo: mongoIndexes.map((index) => ({ name: index.name, key: index.key }))
+    },
+    planCapture: {
+      postgres: "EXPLAIN (ANALYZE, FORMAT JSON)",
+      mongo: "explain('executionStats') / db.command({ explain, verbosity: 'executionStats' })",
+      timingsSource: "PostgreSQL Execution Time and MongoDB executionStats.executionTimeMillis",
+      rawPlanFiles: summary.flatMap((row) => [row.postgresPlanFile, row.mongoPlanFile])
+    },
+    verdictSummary: summary
+  };
+
+  await writeJson("audit.json", report);
+  console.log(JSON.stringify(report, null, 2));
 }
 
 function pgTimeMs(plan: unknown): number {
@@ -333,8 +445,12 @@ async function main(): Promise<void> {
     await check();
     return;
   }
+  if (command === "audit") {
+    await audit();
+    return;
+  }
 
-  console.log("Usage: npm run generate | npm run seed | npm run benchmark | npm run check | npm run all");
+  console.log("Usage: npm run generate | npm run seed | npm run benchmark | npm run check | npm run audit | npm run all");
 }
 
 main().catch((error) => {

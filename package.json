@@ -8,6 +8,7 @@
     "seed": "tsx src/index.ts seed",
     "benchmark": "tsx src/index.ts benchmark",
     "check": "tsx src/index.ts check",
+    "audit": "tsx src/index.ts audit",
     "all": "npm run generate && npm run seed && npm run benchmark",
     "build": "tsc"
   },

@@ -8,8 +8,8 @@
       "Total Cost": 324.34,
       "Plan Rows": 10,
       "Plan Width": 44,
-      "Actual Startup Time": 4.539,
-      "Actual Total Time": 4.54,
+      "Actual Startup Time": 3.102,
+      "Actual Total Time": 3.104,
       "Actual Rows": 10,
       "Actual Loops": 1,
       "Sort Key": [
@@ -30,8 +30,8 @@
           "Total Cost": 324.15,
           "Plan Rows": 10,
           "Plan Width": 44,
-          "Actual Startup Time": 4.478,
-          "Actual Total Time": 4.485,
+          "Actual Startup Time": 3.057,
+          "Actual Total Time": 3.063,
           "Actual Rows": 10,
           "Actual Loops": 1,
           "Group Key": [
@@ -53,8 +53,8 @@
               "Total Cost": 249,
               "Plan Rows": 10000,
               "Plan Width": 14,
-              "Actual Startup Time": 0.006,
-              "Actual Total Time": 1.058,
+              "Actual Startup Time": 0.004,
+              "Actual Total Time": 0.605,
               "Actual Rows": 10000,
               "Actual Loops": 1
             }
@@ -62,8 +62,8 @@
         }
       ]
     },
-    "Planning Time": 0.343,
+    "Planning Time": 0.219,
     "Triggers": [],
-    "Execution Time": 4.607
+    "Execution Time": 3.167
   }
 ]

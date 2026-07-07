@@ -52,7 +52,7 @@
   "executionStats": {
     "executionSuccess": true,
     "nReturned": 1937,
-    "executionTimeMillis": 6,
+    "executionTimeMillis": 2,
     "totalKeysExamined": 1937,
     "totalDocsExamined": 1937,
     "executionStages": {

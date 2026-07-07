@@ -65,13 +65,13 @@
         "executionStats": {
           "executionSuccess": true,
           "nReturned": 1937,
-          "executionTimeMillis": 75,
+          "executionTimeMillis": 76,
           "totalKeysExamined": 1937,
           "totalDocsExamined": 1937,
           "executionStages": {
             "stage": "PROJECTION_SIMPLE",
             "nReturned": 1937,
-            "executionTimeMillisEstimate": 0,
+            "executionTimeMillisEstimate": 2,
             "works": 1938,
             "advanced": 1937,
             "needTime": 0,
@@ -89,7 +89,7 @@
             "inputStage": {
               "stage": "FETCH",
               "nReturned": 1937,
-              "executionTimeMillisEstimate": 0,
+              "executionTimeMillisEstimate": 2,
               "works": 1938,
               "advanced": 1937,
               "needTime": 0,
@@ -102,7 +102,7 @@
               "inputStage": {
                 "stage": "IXSCAN",
                 "nReturned": 1937,
-                "executionTimeMillisEstimate": 0,
+                "executionTimeMillisEstimate": 1,
                 "works": 1938,
                 "advanced": 1937,
                 "needTime": 0,

@@ -30,13 +30,13 @@
         "executionStats": {
           "executionSuccess": true,
           "nReturned": 10000,
-          "executionTimeMillis": 11,
+          "executionTimeMillis": 13,
           "totalKeysExamined": 0,
           "totalDocsExamined": 10000,
           "executionStages": {
             "stage": "PROJECTION_SIMPLE",
             "nReturned": 10000,
-            "executionTimeMillisEstimate": 0,
+            "executionTimeMillisEstimate": 1,
             "works": 10001,
             "advanced": 10000,
             "needTime": 0,
@@ -52,7 +52,7 @@
             "inputStage": {
               "stage": "COLLSCAN",
               "nReturned": 10000,
-              "executionTimeMillisEstimate": 0,
+              "executionTimeMillisEstimate": 1,
               "works": 10001,
               "advanced": 10000,
               "needTime": 0,
@@ -67,7 +67,7 @@
         }
       },
       "nReturned": 10000,
-      "executionTimeMillisEstimate": 8
+      "executionTimeMillisEstimate": 10
     },
     {
       "$group": {
@@ -92,7 +92,7 @@
       "numBytesSpilledEstimate": 0,
       "spilledRecords": 0,
       "nReturned": 10,
-      "executionTimeMillisEstimate": 9
+      "executionTimeMillisEstimate": 10
     },
     {
       "$sort": {
@@ -105,7 +105,7 @@
       "spills": 0,
       "spilledDataStorageSize": 0,
       "nReturned": 10,
-      "executionTimeMillisEstimate": 9
+      "executionTimeMillisEstimate": 10
     }
   ],
   "serverInfo": {

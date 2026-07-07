@@ -8,8 +8,8 @@
       "Total Cost": 341.45,
       "Plan Rows": 1939,
       "Plan Width": 56,
-      "Actual Startup Time": 2.2,
-      "Actual Total Time": 2.287,
+      "Actual Startup Time": 1.553,
+      "Actual Total Time": 1.65,
       "Actual Rows": 1937,
       "Actual Loops": 1,
       "Sort Key": [
@@ -29,8 +29,8 @@
           "Total Cost": 230.72,
           "Plan Rows": 1939,
           "Plan Width": 56,
-          "Actual Startup Time": 0.276,
-          "Actual Total Time": 1.255,
+          "Actual Startup Time": 0.209,
+          "Actual Total Time": 0.854,
           "Actual Rows": 1937,
           "Actual Loops": 1,
           "Inner Unique": true,
@@ -47,8 +47,8 @@
               "Total Cost": 222.24,
               "Plan Rows": 1939,
               "Plan Width": 46,
-              "Actual Startup Time": 0.239,
-              "Actual Total Time": 0.659,
+              "Actual Startup Time": 0.153,
+              "Actual Total Time": 0.452,
               "Actual Rows": 1937,
               "Actual Loops": 1,
               "Recheck Cond": "((price >= '250'::numeric) AND (price <= '750'::numeric))",
@@ -66,8 +66,8 @@
                   "Total Cost": 43.67,
                   "Plan Rows": 1939,
                   "Plan Width": 0,
-                  "Actual Startup Time": 0.217,
-                  "Actual Total Time": 0.218,
+                  "Actual Startup Time": 0.138,
+                  "Actual Total Time": 0.139,
                   "Actual Rows": 1937,
                   "Actual Loops": 1,
                   "Index Cond": "((price >= '250'::numeric) AND (price <= '750'::numeric))"
@@ -83,8 +83,8 @@
               "Total Cost": 1.1,
               "Plan Rows": 10,
               "Plan Width": 26,
-              "Actual Startup Time": 0.02,
-              "Actual Total Time": 0.02,
+              "Actual Startup Time": 0.029,
+              "Actual Total Time": 0.03,
               "Actual Rows": 10,
               "Actual Loops": 1,
               "Hash Buckets": 1024,
@@ -104,8 +104,8 @@
                   "Total Cost": 1.1,
                   "Plan Rows": 10,
                   "Plan Width": 26,
-                  "Actual Startup Time": 0.007,
-                  "Actual Total Time": 0.009,
+                  "Actual Startup Time": 0.006,
+                  "Actual Total Time": 0.007,
                   "Actual Rows": 10,
                   "Actual Loops": 1
                 }
@@ -115,8 +115,8 @@
         }
       ]
     },
-    "Planning Time": 1.531,
+    "Planning Time": 0.883,
     "Triggers": [],
-    "Execution Time": 2.444
+    "Execution Time": 1.833
   }
 ]

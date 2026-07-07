@@ -1,7 +1,7 @@
 [
   {
     "shape": "point-lookup",
-    "postgresTimeMs": 0.139,
+    "postgresTimeMs": 0.158,
     "mongoTimeMs": 0,
     "winner": "MongoDB",
     "postgresPlanFile": "plans/point-lookup.postgres.json",
@@ -11,9 +11,9 @@
   },
   {
     "shape": "range-scan",
-    "postgresTimeMs": 2.478,
-    "mongoTimeMs": 6,
-    "winner": "PostgreSQL",
+    "postgresTimeMs": 2.746,
+    "mongoTimeMs": 2,
+    "winner": "MongoDB",
     "postgresPlanFile": "plans/range-scan.postgres.json",
     "mongoPlanFile": "plans/range-scan.mongo.json",
     "postgresEvidence": "Bitmap Index Scan",
@@ -21,8 +21,8 @@
   },
   {
     "shape": "aggregate",
-    "postgresTimeMs": 4.607,
-    "mongoTimeMs": 11,
+    "postgresTimeMs": 3.167,
+    "mongoTimeMs": 13,
     "winner": "PostgreSQL",
     "postgresPlanFile": "plans/aggregate.postgres.json",
     "mongoPlanFile": "plans/aggregate.mongo.json",
@@ -31,8 +31,8 @@
   },
   {
     "shape": "join-lookup",
-    "postgresTimeMs": 2.444,
-    "mongoTimeMs": 75,
+    "postgresTimeMs": 1.833,
+    "mongoTimeMs": 76,
     "winner": "PostgreSQL",
     "postgresPlanFile": "plans/join-lookup.postgres.json",
     "mongoPlanFile": "plans/join-lookup.mongo.json",
